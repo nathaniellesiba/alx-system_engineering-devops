@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#started 7-highlander in Terminal
+trap 'echo "I am invincible!!!"' SIGTERM
+
+# Display "To infinity and beyond" indefinitely with a 2-second pause between each iteration
+while true
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
