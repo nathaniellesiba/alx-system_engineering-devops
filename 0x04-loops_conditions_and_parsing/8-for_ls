@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #display content of the current directory
 for file in *; do
-    if [ -f "$file" ] && [[ "$file" != .* ]]; then
+    if [ -f "$file" ] && [[ "$file" != .* ]];
+    then
         filename=$(echo "$file" | cut -d'-' -f2-)
         echo "$filename"
     fi
