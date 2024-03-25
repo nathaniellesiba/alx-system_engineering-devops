@@ -1,0 +1,11 @@
+What is a server - is a computer dedicated to providing one or more services to other computers or devices on a network, basically a computer for computers by coordinating activities between computers
+
+What is the role of the domain name - is a text based name that corresponds to the IP address of a server, such as web server that hosts a website
+
+What type of DNS record www is in www.foobar.com - the world wide web, is a type of CNAME DNS record type
+
+What is the role of the web server - it hosts web pages, which are handled and accessible through HTTP protocol
+
+What is the role of the application server - 
+What is the role of the database
+What is the server using to communicate with the computer of the user requesting the website
