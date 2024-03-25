@@ -6,6 +6,8 @@ What type of DNS record www is in www.foobar.com - the world wide web, is a type
 
 What is the role of the web server - it hosts web pages, which are handled and accessible through HTTP protocol
 
-What is the role of the application server - 
-What is the role of the database
-What is the server using to communicate with the computer of the user requesting the website
+What is the role of the application server - the application server runs the application's code and processes dynamic content. It handles the business logic and interacts with the database.
+
+What is the role of the database - MySQL, the database, stores and manages the website's data. It allows for efficient data retrieval and manipulation
+
+What is the server using to communicate with the computer of the user requesting the website - the server communicates with the user's computer using the HTTP (Hypertext Transfer Protocol) or its secure variant, HTTPS (Hypertext Transfer Protocol Secure). These protocols facilitate the request and delivery of web pages and other web resources, allowing the user's browser to communicate with the server and retrieve the website's content
