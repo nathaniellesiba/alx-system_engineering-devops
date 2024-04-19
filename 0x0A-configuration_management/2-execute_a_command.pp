@@ -1,7 +1,6 @@
-exec
-{
-'kill_process':
-  command     => '/usr/bin/pkill killmenow',
-  refreshonly => true,
-  path        => '/usr/bin',
+# manifest to kill process killmenow
+
+exec { 'pkill':
+  command  => 'pkill killmenow',
+  provider => 'shell',
 }
