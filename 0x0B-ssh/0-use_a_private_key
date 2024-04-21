@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#This script uses ssh to connect to 
+#server using pvt key ~/.ssh/school
+
+ssh -i ~/.ssh/school ubuntu@100.26.168.76
