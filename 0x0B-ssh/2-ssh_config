@@ -4,4 +4,4 @@
 Host *
         IdentityFile ~/.ssh/school
         PasswordAuthentication no
-        HostbasedAuthentication noi
+        HostbasedAuthentication no
