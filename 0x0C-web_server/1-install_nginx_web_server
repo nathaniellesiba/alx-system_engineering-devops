@@ -6,11 +6,20 @@ echo -e "updating and installing Nginx.\n"
 sudo apt-get update
 sudo apt-get install -y nginx
 
+#starting nginx service
+sudo service nginx start
 
+#bypass firewall
+sudo ufw allow 'Nginx HTTP'
+
+#give ownership to web files
+sudo chown -R "$USER":"$USER" /var/www/html
 sudo chown -R ubuntu /var/www
 
 #creating new index
 echo "Hello World" > /var/www/html/index.nginx-debian.html
 
-#restarting nginx
-sudo service nginx start
+#restarting nginx service
+sudo service nginx restart
+
+echo -e "\nComplete. \n"
