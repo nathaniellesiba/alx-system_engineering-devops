@@ -1,8 +1,40 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the server
-# 
-sudo apt-get update
-sudo apt-get install -y nginx
-sudo chown -R ubuntu /var/www
-echo "Hello World" > /var/www/html/index.nginx-debian.html
-sudo service nginx start
+# Update the package list
+
+apt-get update
+
+# Install Nginx
+apt-get install -y nginx
+
+# Check if the Nginx service is running
+service nginx start
+
+# Create a simple HTML file that contains "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Configure Nginx to listen on port 80
+# Here, we assume the default Nginx configuration file. 
+# If you have a custom file, you may need to modify the path.
+cat > /etc/nginx/sites-available/default <<EOF
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart Nginx without using systemctl
+service nginx restart
+
+# Check if nginx is running on port 80
+netstat -plnt | grep :80
+
