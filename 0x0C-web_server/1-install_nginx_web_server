@@ -1,8 +1,47 @@
 #!/usr/bin/env bash
+
+# Update the package list
+apt-get update
+
+# Install Nginx
+apt-get install -y nginx
+
+# Check if the Nginx service is running
+service nginx start
+
+# Create a simple HTML file that contains "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Configure Nginx to listen on port 80
+# Here, we assume the default Nginx configuration file.
+# If you have a custom file, you may need to modify the path.
+cat > /etc/nginx/sites-available/default <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart Nginx without using systemctl
+service nginx restart
+
+# Check if nginx is running on port 80
+netstat -plnt | grep :80
+
+"""
 # Installs, configures, and starts the server
 # serve a page returning hello world string
 
-echo -e "updating and installing Nginx.\n"
+echo -e 'updating and installing Nginx.\n'
 sudo apt-get update
 sudo apt-get install -y nginx
 
@@ -13,13 +52,13 @@ sudo service nginx start
 sudo ufw allow 'Nginx HTTP'
 
 #give ownership to web files
-sudo chown -R "$USER":"$USER" /var/www/html
+sudo chown -R '$USER':'$USER' /var/www/html
 sudo chown -R ubuntu /var/www
 
 #creating new index
-echo "Hello World" > /var/www/html/index.nginx-debian.html
+echo 'Hello World' > /var/www/html/index.nginx-debian.html
 
 #restarting nginx service
 sudo service nginx restart
 
-echo -e "\nComplete. \n"
+echo -e '\nComplete. \n'"""
