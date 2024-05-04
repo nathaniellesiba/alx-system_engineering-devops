@@ -36,24 +36,21 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend 
-    bind   0.0.0.0:80
+    bind *:80
     reqadd X-Forwarded-Proto:\ http
-    default_backend 
+    default_backend tsutsa-backend
     redirect scheme  code 301 if !{ ssl_fc }
 
 frontend s
-    bind   0.0.0.0:443 ssl crt /etc/haproxy/certs/
+    bind *:443 ssl crt /etc/haproxy/certs/www.tsutsas.tech.conf
     reqadd X-Forwarded-Proto:\ 
     acl    letsencrypt-acl path_beg /.well-known/acme-challenge/
     use_backend letsencrypt-backend if letsencrypt-acl
-    default_backend 
+    default_backend tsutsa-backend
 
 
-backend 
+backend tsutsa-backend
     balance  roundrobin
     redirect scheme  if !{ ssl_fc }
     server 332194-web-01 100.26.168.76:80 check
     server 332194-web-02 100.25.36.82:80 check
-
-backend letsencrypt-backend
-    server letsencrypt 127.0.0.1:54321
