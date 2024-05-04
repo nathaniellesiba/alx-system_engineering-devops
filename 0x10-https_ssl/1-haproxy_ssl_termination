@@ -6,5 +6,7 @@ frontend www-https
     default_backend www-backend
 
 backend www-backend
-    server web-server 127.0.0.1:80
-
+    balance serverbalance
+    redirect scheme https if !{ ssl_fc}
+    server 332194-web-01 100.26.168.76:80 check
+    server 332194-web-02 100.25.36.82:80 check
