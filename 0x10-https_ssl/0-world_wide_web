@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Function to get the subdomain information
-get_subdomain_info()
-{
+get_subdomain_info() {
     local domain=$1
     local subdomain=$2
-    local lb_01_ip="lb-01-IP"
-    local web_01_ip="web-01-IP"
-    local web_02_ip="web-02-IP"
+
+    lb_01_ip="54.172.103.134"
+    web_01_ip="100.26.168.76"
+    web_02_ip="100.25.36.82"
 
     if [ -z "$subdomain" ]; then
         subdomains=("www" "lb-01" "web-01" "web-02")
@@ -16,18 +16,8 @@ get_subdomain_info()
     fi
 
     for sub in "${subdomains[@]}"; do
-        record_type=$(dig +short $sub.$domain | awk '{print $4}')
+        record_type=$(dig +short $sub.$domain | awk '{print $2}')
         destination=$(dig +short $sub.$domain)
-
-        if [ "$sub" == "www" ]; then
-            destination=$lb_01_ip
-        elif [ "$sub" == "lb-01" ]; then
-            destination=$lb_01_ip
-        elif [ "$sub" == "web-01" ]; then
-            destination=$web_01_ip
-        elif [ "$sub" == "web-02" ]; then
-            destination=$web_02_ip
-        fi
 
         echo "The subdomain $sub is a $record_type record and points to $destination"
     done
