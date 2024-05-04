@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Function to get the subdomain information
+get_subdomain_info()
+{
+    local domain=$1
+    local subdomain=$2
+    local lb_01_ip="lb-01-IP"
+    local web_01_ip="web-01-IP"
+    local web_02_ip="web-02-IP"
+
+    if [ -z "$subdomain" ]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=($subdomain)
+    fi
+
+    for sub in "${subdomains[@]}"; do
+        record_type=$(dig +short $sub.$domain | awk '{print $4}')
+        destination=$(dig +short $sub.$domain)
+
+        if [ "$sub" == "www" ]; then
+            destination=$lb_01_ip
+        elif [ "$sub" == "lb-01" ]; then
+            destination=$lb_01_ip
+        elif [ "$sub" == "web-01" ]; then
+            destination=$web_01_ip
+        elif [ "$sub" == "web-02" ]; then
+            destination=$web_02_ip
+        fi
+
+        echo "The subdomain $sub is a $record_type record and points to $destination"
+    done
+}
+
+# Main script
+if [ "$#" -eq 1 ]; then
+    get_subdomain_info $1
+elif [ "$#" -eq 2 ]; then
+    get_subdomain_info $1 $2
+else
+    echo "Invalid number of arguments. Please provide domain and optionally subdomain."
+fi
